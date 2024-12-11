@@ -70,9 +70,16 @@ final class NewsCell: UITableViewCell {
     }
     
     private func loadImage(from imageURL: URL) {
+        if let cachedImage = ImageCache.shared.getImage(for: imageURL as NSURL) {
+            self.newsImageView.image = cachedImage
+            return
+        }
         DispatchQueue.global().async { [weak self] in
             guard let data = try? Data(contentsOf: imageURL) else {return}
             guard let image = UIImage(data: data) else {return}
+            
+            ImageCache.shared.saveImage(image, for: imageURL as NSURL)
+            
             DispatchQueue.main.async {
                 self?.newsImageView.image = image
             }

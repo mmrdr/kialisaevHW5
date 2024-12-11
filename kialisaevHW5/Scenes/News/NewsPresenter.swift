@@ -14,6 +14,7 @@ final class NewsPresenter: NewsPresentationLogic {
     func presentNews() {
         DispatchQueue.main.async {
             self.view?.articleTableView.reloadData()
+            self.view?.refreshControl.endRefreshing()
         }
     }
     

@@ -11,6 +11,7 @@ final class NewsViewController: UIViewController {
     
     var articleTableView: UITableView = UITableView()
     private var interactor: (NewsBusinessLogic & NewsDataStore)?
+    let refreshControl = UIRefreshControl()
     
     init(interactor: (NewsBusinessLogic & NewsDataStore)?) {
         self.interactor = interactor
@@ -35,10 +36,17 @@ final class NewsViewController: UIViewController {
         articleTableView.dataSource = self
         articleTableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.reuseId)
         articleTableView.separatorColor = UIColor.clear
+        articleTableView.refreshControl = refreshControl
         articleTableView.pinTop(view.safeAreaLayoutGuide.topAnchor)
         articleTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor)
         articleTableView.pinLeft(view.leadingAnchor)
         articleTableView.pinRight(view.trailingAnchor)
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
+    
+    @objc
+    private func refreshData() {
+        interactor?.loadFreshNews()
     }
 }
 
