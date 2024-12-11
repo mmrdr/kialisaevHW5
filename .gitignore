@@ -43,8 +43,6 @@ fastlane/test_output
 # Archives
 *.xcarchive
 
-# Generated files
-*.plist
 
 # Other
 *.log
