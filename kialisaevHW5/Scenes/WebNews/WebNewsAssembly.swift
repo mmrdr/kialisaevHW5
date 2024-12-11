@@ -8,10 +8,10 @@
 import UIKit
 
 enum WebNewsAssembly {
-    static func build() -> UIViewController {
+    static func build(with url: URL?) -> UIViewController {
         let presenter = WebNewsPresenter()
         let interactor = WebNewsInteractor(presenter: presenter)
-        let view = WebNewsViewController(interactor: interactor)
+        let view = WebNewsViewController(interactor: interactor, url: url)
         presenter.view = view
         
         return view

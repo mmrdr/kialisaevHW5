@@ -11,6 +11,7 @@ import UIKit
 protocol NewsBusinessLogic {
     func loadFreshNews()
     func loadMoreNews()
+    func routeToWebNews(_ request: News.RouteToWebNews.Request)
 }
 
 protocol NewsDataStore {
@@ -20,4 +21,5 @@ protocol NewsDataStore {
 //MARK: - News presentation protocol
 protocol NewsPresentationLogic {
     func presentNews()
+    func routeToWebNews(_ response: News.RouteToWebNews.Response)
 }

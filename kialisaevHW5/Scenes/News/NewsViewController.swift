@@ -53,16 +53,21 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         if let article = interactor?.articles[indexPath.row] {
             cell.backgroundColor = UIColor(red: 51/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1)
+            cell.selectionStyle = .none
             cell.configure(with: article)
         }
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let articleURL = interactor?.articles[indexPath.row].articleUrl
+        interactor?.routeToWebNews(
+            News.RouteToWebNews.Request(
+                articleURL: articleURL)
+        )
+    }
+        
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 350
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1000
     }
 }

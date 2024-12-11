@@ -8,11 +8,14 @@
 import UIKit
 
 final class WebNewsInteractor: WebNewsBusinessLogic {
-    
+
     private var presenter: WebNewsPresentationLogic
     
     init(presenter: WebNewsPresentationLogic) {
         self.presenter = presenter
     }
     
+    func routeToNews() {
+        presenter.routeToNews()
+    }
 }

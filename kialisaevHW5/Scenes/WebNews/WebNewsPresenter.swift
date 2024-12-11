@@ -8,8 +8,10 @@
 import UIKit
 
 final class WebNewsPresenter: WebNewsPresentationLogic {
-    
+
     weak var view: WebNewsViewController?
     
-    
+    func routeToNews() {
+        view?.navigationController?.popViewController(animated: true)
+    }
 }

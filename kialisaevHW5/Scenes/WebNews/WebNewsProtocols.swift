@@ -8,9 +8,9 @@
 import UIKit
 
 protocol WebNewsBusinessLogic {
-    
+    func routeToNews()
 }
 
 protocol WebNewsPresentationLogic {
-    
+    func routeToNews()
 }

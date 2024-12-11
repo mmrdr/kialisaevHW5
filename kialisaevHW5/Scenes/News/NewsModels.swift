@@ -34,4 +34,13 @@ enum News {
             }
         }
     }
+    
+    enum RouteToWebNews {
+        struct Request {
+            let articleURL: URL?
+        }
+        struct Response {
+            let articleURL: URL?
+        }
+    }
 }

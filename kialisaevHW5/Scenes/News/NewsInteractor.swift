@@ -8,7 +8,7 @@
 import UIKit
 
 final class NewsInteractor: NewsBusinessLogic, NewsDataStore {
-    
+
     private var presenter: NewsPresentationLogic
     private var worker = NewsWorker()
     
@@ -20,6 +20,13 @@ final class NewsInteractor: NewsBusinessLogic, NewsDataStore {
         didSet {
             presenter.presentNews()
         }
+    }
+    
+    func routeToWebNews(_ request: News.RouteToWebNews.Request) {
+        presenter.routeToWebNews(
+            News.RouteToWebNews.Response(
+                articleURL: request.articleURL)
+        )
     }
     
     func loadFreshNews() {
