@@ -8,9 +8,10 @@
 import UIKit
 
 final class NewsPresenter: NewsPresentationLogic {
-
+    //MARK: - Variables
     weak var view: NewsViewController?
     
+    //MARK: - Public methods
     func presentNews() {
         DispatchQueue.main.async {
             self.view?.articleTableView.reloadData()

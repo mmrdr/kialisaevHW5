@@ -7,19 +7,19 @@
 
 import UIKit
 
-//MARK: - News business protocol
+//MARK: - NewsBusinessLogic protocol
 protocol NewsBusinessLogic {
     func loadFreshNews()
     func loadMoreNews()
     func routeToWebNews(_ request: News.RouteToWebNews.Request)
     func createViewForNewsShare(_ request: News.ShareNews.Request)
 }
-
+//MARK: - NewsDataStore protocol
 protocol NewsDataStore {
     var articles: [News.Article] {get set}
 }
 
-//MARK: - News presentation protocol
+//MARK: - NewsPresentationLogic protocol
 protocol NewsPresentationLogic {
     func presentNews()
     func routeToWebNews(_ response: News.RouteToWebNews.Response)

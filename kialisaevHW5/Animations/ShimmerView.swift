@@ -18,21 +18,22 @@ final class ShimmerView: UIView {
         
         static let animationDuration = 0.9
     }
-    var gradientColorOne : CGColor = UIColor(white: 0.85, alpha: 1.0).cgColor
-    var gradientColorTwo : CGColor = UIColor(white: 0.95, alpha: 1.0).cgColor
     
+    //MARK: - Variables
+    var gradientColorOne : CGColor = Constants.firstGradientColor
+    var gradientColorTwo : CGColor = Constants.secondGradientColor
     
-    
+    //MARK: - Public methods
     func addGradientLayer() -> CAGradientLayer {
         
         let gradientLayer = CAGradientLayer()
         
         gradientLayer.frame = self.bounds
         print(gradientLayer.frame)
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.startPoint = Constants.startPoint
+        gradientLayer.endPoint = Constants.endPoint
         gradientLayer.colors = [gradientColorOne, gradientColorTwo, gradientColorOne]
-        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.locations = Constants.gradientLayerLocations
         self.layer.addSublayer(gradientLayer)
         
         return gradientLayer
@@ -41,10 +42,10 @@ final class ShimmerView: UIView {
     func addAnimation() -> CABasicAnimation {
         
         let animation = CABasicAnimation(keyPath: "locations")
-        animation.fromValue = [-1.0, -0.5, 0.0]
-        animation.toValue = [1.0, 1.5, 2.0]
+        animation.fromValue = Constants.fromValue
+        animation.toValue = Constants.toValue
         animation.repeatCount = .infinity
-        animation.duration = 0.9
+        animation.duration = Constants.animationDuration
         return animation
     }
     

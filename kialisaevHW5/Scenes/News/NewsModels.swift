@@ -8,6 +8,7 @@
 import UIKit
 
 enum News {
+    //MARK: - NewsModels
     struct Article: Decodable {
         var newsId: Int?
         var title: String?

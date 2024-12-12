@@ -6,11 +6,11 @@
 //
 
 import UIKit
-
+//MARK: - WebNewsBusinessLogic protocol
 protocol WebNewsBusinessLogic {
     func routeToNews()
 }
-
+//MARK: - WebNewsPresentationLogic protocol
 protocol WebNewsPresentationLogic {
     func routeToNews()
 }

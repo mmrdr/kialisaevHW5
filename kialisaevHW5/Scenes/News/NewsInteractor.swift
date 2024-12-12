@@ -8,20 +8,21 @@
 import UIKit
 
 final class NewsInteractor: NewsBusinessLogic, NewsDataStore {
-
+    //MARK: - Variables
     private var presenter: NewsPresentationLogic
     private var worker = NewsWorker()
-    
-    init(presenter: NewsPresentationLogic) {
-        self.presenter = presenter
-    }
-    
     var articles: [News.Article] = [] {
         didSet {
             presenter.presentNews()
         }
     }
     
+    //MARK: - Lifecycle
+    init(presenter: NewsPresentationLogic) {
+        self.presenter = presenter
+    }
+    
+    //MARK: - Public methods
     func routeToWebNews(_ request: News.RouteToWebNews.Request) {
         presenter.routeToWebNews(
             News.RouteToWebNews.Response(

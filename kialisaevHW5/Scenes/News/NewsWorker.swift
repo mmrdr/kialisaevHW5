@@ -8,17 +8,24 @@
 import UIKit
 
 final class NewsWorker {
-    
+    //MARK: - Errors
     enum URLError: Error {
         case invalidRequest
     }
     
+    //MARK: - Constants
+    enum Constants {
+        static let rubricNumber: Int = 4
+        static let pageIndex: Int = 1
+    }
+    
+    //MARK: - Variables
     private let jsonDecoder: JSONDecoder = JSONDecoder()
     private var newsPage: News.NewsPage = News.NewsPage()
     
     //MARK: - Fetch news
     func fetchNews(completion: @escaping (Result<News.NewsPage, Error>) -> Void) {
-        guard let url = getURL(4, 1) else {
+        guard let url = getURL(Constants.rubricNumber, Constants.pageIndex) else {
             completion(.failure(NewsWorker.URLError.invalidRequest))
             print("Failed in fetchNews")
             return
@@ -40,6 +47,7 @@ final class NewsWorker {
         }.resume()
     }
     
+    //MARK: - Private method getURL
     private func getURL(_ rubric: Int, _ pageIndex: Int) -> URL? {
         URL(string: "https://news.myseldon.com/api/Section?rubricId=\(rubric)&pageSize=8&pageIndex=\(pageIndex)")
     }

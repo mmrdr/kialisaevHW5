@@ -8,9 +8,9 @@
 import UIKit
 
 final class WebNewsPresenter: WebNewsPresentationLogic {
-
+    //MARK: - Variables
     weak var view: WebNewsViewController?
-    
+    //MARK: - Public methods
     func routeToNews() {
         view?.navigationController?.popViewController(animated: true)
     }

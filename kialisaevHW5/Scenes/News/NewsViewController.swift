@@ -8,6 +8,14 @@
 import UIKit
 
 final class NewsViewController: UIViewController {
+    //MARK: - Constants
+    enum Constants {
+        static let backgroundColor: UIColor = UIColor(red: 51/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1)
+        
+        static let shareButtonName: String = "Share"
+        
+        static let tableViewHeightForRowAt: CGFloat = 350
+    }
     
     var articleTableView: UITableView = UITableView()
     private var interactor: (NewsBusinessLogic & NewsDataStore)?
@@ -24,17 +32,17 @@ final class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 51/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1)
+        view.backgroundColor = Constants.backgroundColor
         configureArticleTableView()
         interactor?.loadFreshNews()
     }
     
     private func configureArticleTableView() {
         view.addSubview(articleTableView)
-        articleTableView.backgroundColor = UIColor(red: 51/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1)
+        articleTableView.backgroundColor = Constants.backgroundColor
         articleTableView.delegate = self
         articleTableView.dataSource = self
-        articleTableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.reuseId)
+        articleTableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.Constants.reuseId)
         articleTableView.separatorColor = UIColor.clear
         articleTableView.refreshControl = refreshControl
         articleTableView.pinTop(view.safeAreaLayoutGuide.topAnchor)
@@ -56,11 +64,11 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseId, for: indexPath) as? NewsCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.Constants.reuseId, for: indexPath) as? NewsCell else {
             return UITableViewCell()
         }
         if let article = interactor?.articles[indexPath.row] {
-            cell.backgroundColor = UIColor(red: 51/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1)
+            cell.backgroundColor = Constants.backgroundColor
             cell.selectionStyle = .none
             cell.configure(with: article)
         }
@@ -78,7 +86,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let share = UIContextualAction(
-            style: .normal, title: "Share") { [weak self] (action, view, completionHandler) in
+            style: .normal, title: Constants.shareButtonName) { [weak self] (action, view, completionHandler) in
                 guard let self = self else {return}
                 interactor?.createViewForNewsShare(News.ShareNews.Request(newId: interactor?.articles[indexPath.row].newsId))
                 completionHandler(true)
@@ -88,6 +96,6 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 350
+        return Constants.tableViewHeightForRowAt
     }
 }
