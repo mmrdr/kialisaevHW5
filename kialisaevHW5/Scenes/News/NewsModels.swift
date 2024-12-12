@@ -43,4 +43,13 @@ enum News {
             let articleURL: URL?
         }
     }
+    
+    enum ShareNews {
+        struct Request {
+            let newId: Int?
+        }
+        struct Response {
+            let shareVC: UIActivityViewController
+        }
+    }
 }

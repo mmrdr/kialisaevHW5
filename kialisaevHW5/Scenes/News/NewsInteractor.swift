@@ -50,4 +50,12 @@ final class NewsInteractor: NewsBusinessLogic, NewsDataStore {
             }
         }
     }
+    
+    func createViewForNewsShare(_ request: News.ShareNews.Request) {
+        let textToShare = "Привет! Это пример использования меню 'Поделиться'."
+        let urlToShare = URL(string: "https://news.myseldon.com/ru/news/index/\(request.newId!)")
+        let itemsToShare: [Any] = [textToShare, urlToShare ?? []]
+        let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+        presenter.showShareMenu(News.ShareNews.Response(shareVC: activityVC))
+    }
 }

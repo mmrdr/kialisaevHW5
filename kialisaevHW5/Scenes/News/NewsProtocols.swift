@@ -12,6 +12,7 @@ protocol NewsBusinessLogic {
     func loadFreshNews()
     func loadMoreNews()
     func routeToWebNews(_ request: News.RouteToWebNews.Request)
+    func createViewForNewsShare(_ request: News.ShareNews.Request)
 }
 
 protocol NewsDataStore {
@@ -22,4 +23,5 @@ protocol NewsDataStore {
 protocol NewsPresentationLogic {
     func presentNews()
     func routeToWebNews(_ response: News.RouteToWebNews.Response)
+    func showShareMenu(_ response: News.ShareNews.Response)
 }

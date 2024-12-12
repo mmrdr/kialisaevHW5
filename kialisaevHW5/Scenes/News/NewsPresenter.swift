@@ -23,4 +23,8 @@ final class NewsPresenter: NewsPresentationLogic {
             WebNewsAssembly.build(with: response.articleURL), 
             animated: true)
     }
+    
+    func showShareMenu(_ response: News.ShareNews.Response) {
+        view?.present(response.shareVC, animated: true)
+    }
 }
