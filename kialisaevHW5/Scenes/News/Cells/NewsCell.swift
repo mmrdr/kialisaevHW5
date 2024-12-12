@@ -30,9 +30,11 @@ final class NewsCell: UITableViewCell {
         let descriptionLabel = UILabel()
         descriptionLabel.font = .systemFont(ofSize: 12)
         descriptionLabel.textColor = .white
-        descriptionLabel.numberOfLines = 4
+        descriptionLabel.numberOfLines = 3
         return descriptionLabel
     }()
+    
+    private let shimmerLayer: ShimmerView = ShimmerView(frame: CGRect(x: 20, y: 75, width: 350, height: 200))
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,34 +45,42 @@ final class NewsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func configureShimmerView() {
+        contentView.addSubview(shimmerLayer)
+        shimmerLayer.layer.cornerRadius = 10
+        shimmerLayer.startAnimating()
+    }
+    
     private func configureNewsImageView() {
         contentView.addSubview(newsImageView)
         newsImageView.pinCentreY(contentView)
         newsImageView.pinHorizontal(contentView, 20)
-        newsImageView.setHeight(350)
+        newsImageView.setHeight(200)
         newsImageView.setWidth(350)
     }
     
-    private func configureNewsDescriptionLabel() {
-        newsImageView.addSubview(newsDescriptionLabel)
-        newsDescriptionLabel.pinBottom(newsImageView.bottomAnchor, 5)
-        newsDescriptionLabel.pinHorizontal(newsImageView, 10)
-    }
-    
     private func configureNewsTitleLabel() {
-        newsImageView.addSubview(newsTitleLabel)
-        newsTitleLabel.pinBottom(newsDescriptionLabel.topAnchor, 5)
+        contentView.addSubview(newsTitleLabel)
+        newsTitleLabel.pinTop(newsImageView.bottomAnchor, 5)
         newsTitleLabel.pinHorizontal(newsImageView, 10)
     }
     
+    private func configureNewsDescriptionLabel() {
+        contentView.addSubview(newsDescriptionLabel)
+        newsDescriptionLabel.pinTop(newsTitleLabel.bottomAnchor, 5)
+        newsDescriptionLabel.pinHorizontal(newsImageView, 10)
+    }
+    
     private func configureUI() {
+        configureShimmerView()
         configureNewsImageView()
-        configureNewsDescriptionLabel()
         configureNewsTitleLabel()
+        configureNewsDescriptionLabel()
     }
     
     private func loadImage(from imageURL: URL) {
         if let cachedImage = ImageCache.shared.getImage(for: imageURL as NSURL) {
+            self.shimmerLayer.isHidden = true
             self.newsImageView.image = cachedImage
             return
         }
@@ -81,6 +91,7 @@ final class NewsCell: UITableViewCell {
             ImageCache.shared.saveImage(image, for: imageURL as NSURL)
             
             DispatchQueue.main.async {
+                self?.shimmerLayer.isHidden = true
                 self?.newsImageView.image = image
             }
         }
