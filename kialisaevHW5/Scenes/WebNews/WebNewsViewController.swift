@@ -12,6 +12,7 @@ final class WebNewsViewController: UIViewController {
     //MARK: - Constants
     enum Constants {
         static let chevronLeft: String = "chevron.left"
+        static let backgroundColor: UIColor = UIColor(red: 51/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1)
     }
     
     //MARK: - Variables
@@ -32,6 +33,7 @@ final class WebNewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Constants.backgroundColor
         let backButton = UIBarButtonItem(image: UIImage(systemName: Constants.chevronLeft), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem = backButton
         configureWebView()
