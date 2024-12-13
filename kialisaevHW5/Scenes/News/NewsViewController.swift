@@ -86,9 +86,8 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let share = UIContextualAction(
-            style: .normal, title: Constants.shareButtonName) { [weak self] (action, view, completionHandler) in
-                guard let self = self else {return}
-                interactor?.createViewForNewsShare(News.ShareNews.Request(newId: interactor?.articles[indexPath.row].newsId))
+            style: .normal, title: Constants.shareButtonName) { (action, view, completionHandler) in
+                self.interactor?.createViewForNewsShare(News.ShareNews.Request(newId: self.interactor?.articles[indexPath.row].newsId))
                 completionHandler(true)
         }
         let swipe = UISwipeActionsConfiguration(actions: [share])
